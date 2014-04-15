@@ -1,0 +1,38 @@
+<h2> 出欠を新規登録する</h2>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@user, :action => "create") do |f| %>
+
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <div class="form-group">
+        <%= f.label :name, "お名前" %>
+        <%= f.text_field :name, class: "form-control", placeholder: "お名前" %>
+      </div>
+
+      <%= f.label :status, "ご都合" %>
+      <table class="table">
+        <% @plans.each_with_index do |p, i| %>
+        <tr>
+          <td><%= p.datetime %></td>
+            <td>
+              <%= select_tag("attendances[][status]",
+                    options_for_select( [[display_status(1), 1], [display_status(2), 2], [display_status(3), 3]] ),
+                    :id => "attendance_select_#{i}" ) %>
+              <%= hidden_field_tag 'attendances[][plan_id]', "#{p.id}", :id => "attendance_hidden_plan_id_#{i}" %>
+            </td>
+        </tr>
+        <% end %>
+      </table>
+      <div class="form-group">
+        <%= f.label :comment, "コメント" %>
+        <%= f.text_field :comment, class: "form-control", placeholder: "コメント" %>
+      </div>
+      <div class="text-center"> 
+      <%= hidden_field_tag 'url_param', "#{@url_param}" %>
+      <%= f.submit "Update", class: "btn btn-large btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

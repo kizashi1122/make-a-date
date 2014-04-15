@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MakeADate</title>
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <ul class="nav nav-pills pull-right">
+        <li class="active"><a href="/">Home</a></li>
+      </ul>
+      <h3 class="text-muted">Make a date</h3>
+    </div>
+    <%= yield %>
+    <footer class="footer">
+    </footer>
+    <%= debug(params) if Rails.env.development? %>
+  </div>
+  <%= javascript_include_tag %>
+</body>
+</html>
