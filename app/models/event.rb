@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
 #  has_many :plans
+  has_many :attendances
   attr_accessor :plan_str
 
   validates :name, presence: true

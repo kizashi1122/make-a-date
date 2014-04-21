@@ -8,16 +8,9 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.url_param = SecureRandom.hex(16)
-
-    plan_str = @event.plan_str
+    @event.plan = @event.plan_str.split(/\n/).map(&:strip).join("\t")
 
     if @event.save
-      plan_str.each_line { |line|
-        unless line.blank?
-          pl = Plan.new(datetime: line.strip, event: @event) # TODO error handling
-          pl.save!
-        end
-      }
       render "url_show"
     else
       @event.url_param = ""
@@ -33,8 +26,7 @@ class EventsController < ApplicationController
     if @event.nil?
       redirect_to root_url # return back root path without notice
     elsif
-      @plans = Plan.where(event_id: @event)
-      @users = User.includes(:attendances).where(event_id: @event.id)
+      @attendances = Attendance.where(event_id: @event.id)
     end
   end
 

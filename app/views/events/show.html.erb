@@ -9,21 +9,21 @@
 <table class="table">
   <tr>
     <th>名前</th>
-    <% @plans.each do |p| %>
-      <th><%= p.datetime %></th>
+    <% @event.plan.split(/\t/).each do |p| %>
+      <th><%= p %></th>
     <% end %>
     <th>コメント</th>
   </tr>
-  <% @users.each do |u| %>
+  <% @attendances.each do |a| %>
     <tr>
-      <td><%= u.name %></td>
-      <% u.attendances.each do |a| %>
-        <td><%= display_status a.status %></td>
+      <td><%= a.user_name %></td>
+      <% a.mytime.split(/\t/).each do |t| %>
+        <td><%= display_status t.to_i %></td>
       <% end %>
-      <td><%= u.comment %></td>
+      <td><%= a.comment %></td>
     </tr>
     <% end %>
   <table>
-    <p>
-      <%= link_to "あなたの予定を登録する", { :controller => "users", :action => "new", :url_param => @event.url_param}, {:class => "btn  btn-primary"} %>
-    </p>
+  <p>
+  <%= link_to "あなたの予定を登録する", { :controller => "attendances", :action => "new", :url_param => @event.url_param}, {:class => "btn  btn-primary"} %>
+  </p>

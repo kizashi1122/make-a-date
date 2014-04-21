@@ -17,11 +17,5 @@ none of the above
 
 EOS
   end
-
-  factory :plan, :class => Plan do
-    datetime "2014/1/1 19:00"
-    event
-  end
-
 end
 

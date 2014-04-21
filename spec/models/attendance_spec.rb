@@ -2,16 +2,13 @@ require 'spec_helper'
 
 describe Attendance do
 
-#  let(:plan) { FactoryGirl.create(:plan) }
+  mytime_arr = ['1','2','3']
+
   before do
-    @attendance = Attendance.new(mytime: "1\t2\t3": 1, user_name: "aiueo", event_id: 1)
+    @attendance = Attendance.new(mytime_arr: mytime_arr, mytime: mytime_arr.join("\t"), user_name: "aiueo", event_id: 1)
   end
 
   subject { @attendance }
-
-#  it { should respond_to(:plan_id) }
-#  it { should respond_to(:user_id) }
-#  it { should respond_to(:status) }
 
   it { should respond_to(:event_id) }
   it { should respond_to(:user_name) }
@@ -19,8 +16,8 @@ describe Attendance do
   
   it { should be_valid }
 
-  describe "when status is not present" do
-    before { @attendance.status = nil }
+  describe "when user name is not present" do
+    before { @attendance.user_name = nil }
     it { should_not be_valid }
   end
 
