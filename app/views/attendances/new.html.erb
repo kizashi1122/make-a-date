@@ -1,37 +1,3 @@
 <h2> 出欠を新規登録する</h2>
 
-<div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@attendance) do |f| %>
-
-      <%= render 'shared/error_messages', object: f.object %>
-
-      <div class="form-group">
-        <%= f.label :user_name, "お名前" %>
-        <%= f.text_field :user_name, class: "form-control", placeholder: "お名前" %>
-      </div>
-
-      <%= f.label :mytime, "ご都合" %>
-      <table class="table">
-        <% @event.plan.split(/\t/).each_with_index do |p, i| %>
-        <tr>
-          <td><%= p %></td>
-            <td>
-              <%= select_tag('attendance[mytime_arr][]',
-                    options_for_select( [[display_status(1), 1], [display_status(2), 2], [display_status(3), 3]] ),
-                    :id => "mytime_select_#{i}" ) %>
-            </td>
-        </tr>
-        <% end %>
-      </table>
-      <div class="form-group">
-        <%= f.label :comment, "コメント" %>
-        <%= f.text_field :comment, class: "form-control", placeholder: "コメント" %>
-      </div>
-      <div class="text-center"> 
-      <%= hidden_field_tag 'url_param', "#{@url_param}" %>
-      <%= f.submit "Update", class: "btn btn-large btn-primary" %>
-      </div>
-    <% end %>
-  </div>
-</div>
+<%= render 'form' %>

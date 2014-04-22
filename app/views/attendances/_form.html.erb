@@ -17,7 +17,7 @@
             <td>
               <%= select_tag('attendance[mytime_arr][]',
                     options_for_select( [[display_status(0), 0], [display_status(1), 1], [display_status(2), 2]], :selected => mytime_str_to_arr(@attendance.mytime)[i] ),
-                    :id => "mytime_select_#{i}" ) %>
+                    :id => "mytime_select_#{i}", :class => "form-control") %>
             </td>
         </tr>
         <% end %>

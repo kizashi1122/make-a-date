@@ -5,7 +5,7 @@
 <p><%= simple_format( h @event.description ) %></p>
 </blockquote>
 
-<h4>候補日</h4>
+<h4>候補日 <span class="label label-success">登録者数: <%= @attendances.size %></span></h4>
 <table class="table">
   <tr>
     <th>名前</th>
@@ -16,8 +16,8 @@
   </tr>
   <% @attendances.each do |a| %>
     <tr>
-      <td><%= a.user_name %></td>
-      <% a.mytime.split(/\t/).each do |t| %>
+      <td><%= link_to a.user_name, edit_attendance_path(a, { :url_param => @event.url_param }) %></td>
+      <% mytime_str_to_arr(a.mytime).each do |t| %>
         <td><%= display_status t.to_i %></td>
       <% end %>
       <td><%= a.comment %></td>
@@ -27,3 +27,4 @@
   <p>
   <%= link_to "あなたの予定を登録する", { :controller => "attendances", :action => "new", :url_param => @event.url_param}, {:class => "btn  btn-primary"} %>
   </p>
+
