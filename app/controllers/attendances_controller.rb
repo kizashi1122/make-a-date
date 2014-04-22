@@ -4,7 +4,7 @@ class AttendancesController < ApplicationController
  
   def new 
     @attendance = Attendance.new
-    init_mytime
+    @attendance.mytime = []
   end
 
   def create
@@ -44,11 +44,6 @@ class AttendancesController < ApplicationController
     if @event.nil?
       redirect_to root_url # return root path without notice
     end
-  end
-
-  def init_mytime
-    att = mytime_str_to_arr @event.plan
-    @attendance.mytime = Array.new(att.size, 0)
   end
 
 end
