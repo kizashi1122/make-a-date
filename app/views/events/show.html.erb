@@ -1,4 +1,4 @@
-<h2><%= @event.name %> の出欠確認 </h2>
+<h2><%= @event.name %> の出欠確認 <%= link_to '再編集', edit_event_path(@event), :class=> "btn btn-default btn-sm", :role => "button" %></h2>
 
 <h4>詳細</h4>
 <blockquote>
@@ -9,18 +9,19 @@
 <table class="table">
   <tr>
     <th>名前</th>
-    <% @event.plan.split(/\t/).each do |p| %>
+    <%  event_plan_str_to_arr(@event.plan).each do |p| %>
       <th><%= p %></th>
     <% end %>
     <th>コメント</th>
   </tr>
-  <% @attendances.each do |a| %>
+    <% @attendances.each do |a| %>
     <tr>
       <td><%= link_to a.user_name, edit_attendance_path(a, { :url_param => @event.url_param }) %></td>
-      <% mytime_str_to_arr(a.mytime).each do |t| %>
-        <td><%= display_status t.to_i %></td>
+      <%  event_plan_str_to_arr(@event.plan).each_with_index do |p, i| %>
+        <% t =  mytime_str_to_arr(a.mytime)[i] %>
+        <td><%=  t.nil? ? "" : show_status_icon(t.to_i) %></td>
       <% end %>
-      <td><%= a.comment %></td>
+      <td><small><%= a.comment %></small></td>
     </tr>
     <% end %>
   <table>

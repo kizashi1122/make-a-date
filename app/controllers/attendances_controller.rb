@@ -24,7 +24,7 @@ class AttendancesController < ApplicationController
 
   def update
     @attendance = Attendance.find(params[:id])
-    @attendance.mytime = mytyme_arr_to_str attendance_params[:mytime_arr]
+    @attendance.mytime = mytime_arr_to_str attendance_params[:mytime_arr]
     if @attendance.update(attendance_params)
       redirect_to event_path(@url_param)
     else

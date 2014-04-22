@@ -1,6 +1,6 @@
 MakeADate::Application.routes.draw do
 
-  resources :events, only:[:new, :create, :show]
+  resources :events, only:[:new, :create, :show, :edit, :update]
 #  resources :users, only:[:new, :create]
   resources :attendances, only:[:new, :create, :edit, :update]
   root "events#new"

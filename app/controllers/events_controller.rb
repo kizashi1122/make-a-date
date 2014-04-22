@@ -1,6 +1,9 @@
 require 'securerandom'
 
 class EventsController < ApplicationController
+
+  include EventsHelper
+
   def new
     @event = Event.new
   end
@@ -8,7 +11,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.url_param = SecureRandom.hex(16)
-    @event.plan = @event.plan_str.split(/\n/).map(&:strip).join("\t")
+    @event.plan = event_plan_arr_to_str @event.plan_str.split(/\n/).map(&:strip)
 
     if @event.save
       render "url_show"
@@ -17,6 +20,21 @@ class EventsController < ApplicationController
       render "new"
     end
   end
+
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:id])
+    @event.plan += "\t" + event_plan_arr_to_str(event_params[:plan_str].split(/\n/).map(&:strip))
+    if @event.update(event_params)
+      redirect_to event_path(@event.url_param)
+    else
+      render "edit"
+    end
+  end
+
 
   def url_show
   end
