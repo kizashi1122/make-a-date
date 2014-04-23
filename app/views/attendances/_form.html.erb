@@ -28,8 +28,8 @@
       </div>
       <div class="text-center"> 
       <%= hidden_field_tag 'url_param', "#{@url_param}" %>
-      <%= link_to "Back", event_path(@url_param), class: "btn btn-large btn-default" %>
-      <%= f.submit "Update", class: "btn btn-large btn-primary" %>
+      <%= link_to "戻る", event_path(@url_param), class: "btn btn-large btn-default" %>
+      <%= f.submit "更新する", class: "btn btn-large btn-primary" %>
       </div>
     <% end %>
   </div>

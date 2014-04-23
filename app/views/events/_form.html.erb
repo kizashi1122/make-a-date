@@ -28,6 +28,9 @@
                                    placeholder: "候補日時を改行区切りで入力してください" %>
       </div>
       <div class="form-group text-center">
+        <% unless @event.new_record? %>
+        <%= link_to "戻る", event_path(@event.url_param), class: "btn btn-large btn-default" %>
+        <% end %>
         <%= f.submit @event.new_record? ? "イベント作成" : "イベント更新", class: "btn btn-large btn-primary" %>
       <div>
     <% end %>
