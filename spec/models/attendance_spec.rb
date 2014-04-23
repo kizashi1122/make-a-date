@@ -1,11 +1,12 @@
 require 'spec_helper'
+include AttendancesHelper
 
 describe Attendance do
 
   mytime_arr = ['1','2','3']
 
   before do
-    @attendance = Attendance.new(mytime_arr: mytime_arr, mytime: mytime_arr.join("\t"), user_name: "aiueo", event_id: 1)
+    @attendance = Attendance.new(mytime_arr: mytime_arr, mytime: mytime_arr_to_str(mytime_arr), user_name: "aiueo", event_id: 1)
   end
 
   subject { @attendance }
