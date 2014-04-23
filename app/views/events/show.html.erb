@@ -1,29 +1,31 @@
-<h2><%= @event.name %> の出欠確認 </h2>
+<h2><%= @event.name %> の出欠確認 <%= link_to '再編集', edit_event_path(@event), :class=> "btn btn-default btn-sm", :role => "button" %></h2>
 
 <h4>詳細</h4>
 <blockquote>
 <p><%= simple_format( h @event.description ) %></p>
 </blockquote>
 
-<h4>候補日</h4>
+<h4>候補日 <span class="label label-success">登録者数: <%= @attendances.size %></span></h4>
 <table class="table">
   <tr>
     <th>名前</th>
-    <% @plans.each do |p| %>
-      <th><%= p.datetime %></th>
+    <%  event_plan_str_to_arr(@event.plan).each do |p| %>
+      <th><%= p %></th>
     <% end %>
     <th>コメント</th>
   </tr>
-  <% @users.each do |u| %>
+    <% @attendances.each do |a| %>
     <tr>
-      <td><%= u.name %></td>
-      <% u.attendances.each do |a| %>
-        <td><%= display_status a.status %></td>
+      <td><%= link_to a.user_name, edit_attendance_path(a, { :url_param => @event.url_param }) %></td>
+      <%  event_plan_str_to_arr(@event.plan).each_with_index do |p, i| %>
+        <% t =  mytime_str_to_arr(a.mytime)[i] %>
+        <td><%=  t.nil? ? "" : show_status_icon(t.to_i) %></td>
       <% end %>
-      <td><%= u.comment %></td>
+      <td><small><%= a.comment %></small></td>
     </tr>
     <% end %>
   <table>
-    <p>
-      <%= link_to "あなたの予定を登録する", { :controller => "users", :action => "new", :url_param => @event.url_param}, {:class => "btn  btn-primary"} %>
-    </p>
+  <p>
+  <%= link_to "あなたの予定を登録する", { :controller => "attendances", :action => "new", :url_param => @event.url_param}, {:class => "btn  btn-primary"} %>
+  </p>
+

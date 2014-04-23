@@ -1,6 +1,9 @@
 require 'securerandom'
 
 class EventsController < ApplicationController
+
+  include EventsHelper
+
   def new
     @event = Event.new
   end
@@ -8,22 +11,30 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.url_param = SecureRandom.hex(16)
-
-    plan_str = @event.plan_str
+    @event.plan = event_plan_arr_to_str @event.plan_str.split(/\n/).map(&:strip)
 
     if @event.save
-      plan_str.each_line { |line|
-        unless line.blank?
-          pl = Plan.new(datetime: line.strip, event: @event) # TODO error handling
-          pl.save!
-        end
-      }
       render "url_show"
     else
       @event.url_param = ""
       render "new"
     end
   end
+
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:id])
+    @event.plan += "\t" + event_plan_arr_to_str(event_params[:plan_str].split(/\n/).map(&:strip))
+    if @event.update(event_params)
+      redirect_to event_path(@event.url_param)
+    else
+      render "edit"
+    end
+  end
+
 
   def url_show
   end
@@ -33,8 +44,7 @@ class EventsController < ApplicationController
     if @event.nil?
       redirect_to root_url # return back root path without notice
     elsif
-      @plans = Plan.where(event_id: @event)
-      @users = User.includes(:attendances).where(event_id: @event.id)
+      @attendances = Attendance.where(event_id: @event.id)
     end
   end
 
