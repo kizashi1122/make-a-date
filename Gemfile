@@ -9,9 +9,10 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'therubyracer'
+gem 'sqlite3'
 
 group :development, :test do
-  gem 'sqlite3'
+#  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'guard-rspec'
 #  Gem 'spork-rails', '4.0.0'
@@ -28,4 +29,8 @@ group :test do
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 end
 
+gem 'capistrano', '~> 3.1.0'
+gem 'capistrano-rails', '~> 1.1.0' # rails specific capistrano funcitons
+gem 'capistrano-bundler'           # integrate bundler with capistrano
+gem 'capistrano-rbenv', "~> 2.0"   # if you are using RBENV
 gem 'unicorn'
