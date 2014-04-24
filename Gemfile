@@ -9,9 +9,10 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'therubyracer'
+gem 'sqlite3'
 
 group :development, :test do
-  gem 'sqlite3'
+#  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'guard-rspec'
 #  Gem 'spork-rails', '4.0.0'
