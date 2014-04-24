@@ -28,3 +28,4 @@ group :test do
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 end
 
+gem 'unicorn'
