@@ -5,10 +5,4 @@ class ApplicationController < ActionController::Base
 
   include AttendancesHelper
 
-  def log arg
-    p "@" * 20
-    p arg
-    p "@" * 20
-  end
-
 end
