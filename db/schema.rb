@@ -31,19 +31,4 @@ ActiveRecord::Schema.define(version: 20140421080949) do
     t.string   "plan"
   end
 
-  create_table "plans", force: true do |t|
-    t.string   "datetime"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "users", force: true do |t|
-    t.string   "name"
-    t.string   "comment"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
 end
