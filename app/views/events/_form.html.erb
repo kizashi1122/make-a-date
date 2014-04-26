@@ -1,6 +1,6 @@
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for(@event) do |f| %>
+    <%= form_for(@event, :url => (@event.new_record? ? events_path : event_path(@event.url_param) )) do |f| %>
 
       <%= render 'shared/error_messages', object: f.object %>
       
@@ -29,7 +29,7 @@
       </div>
       <div class="form-group text-center">
         <% unless @event.new_record? %>
-        <%= link_to "戻る", event_path(@event.url_param), class: "btn btn-large btn-default" %>
+        <%= link_to "戻る", show_event_path(@event.url_param), class: "btn btn-large btn-default" %>
         <% end %>
         <%= f.submit @event.new_record? ? "イベント作成" : "イベント更新", class: "btn btn-large btn-primary" %>
       <div>

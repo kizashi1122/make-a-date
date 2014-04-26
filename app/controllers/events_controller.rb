@@ -4,6 +4,8 @@ class EventsController < ApplicationController
 
   include EventsHelper
 
+  before_action :event_from_url_param, only: [:edit, :update, :show]
+
   def new
     @event = Event.new
   end
@@ -22,30 +24,22 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event = Event.find(params[:id])
   end
 
   def update
-    @event = Event.find(params[:id])
     @event.plan += "\t" + event_plan_arr_to_str(event_params[:plan_str].split(/\n/).map(&:strip))
     if @event.update(event_params)
-      redirect_to event_path(@event.url_param)
+      redirect_to show_event_path(@event.url_param)
     else
       render "edit"
     end
   end
 
-
   def url_show
   end
 
   def show
-    @event = Event.find_by(url_param: params[:id])
-    if @event.nil?
-      redirect_to root_url # return back root path without notice
-    elsif
       @attendances = Attendance.where(event_id: @event.id)
-    end
   end
 
   private 

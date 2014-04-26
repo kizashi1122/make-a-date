@@ -39,25 +39,40 @@ describe "Events" do
     end
   end
 
-  describe "Edit Event" do
+  describe "Show Event" do
     let(:event) { FactoryGirl.create(:event) }
     
     before do  
-      visit event_path(event.url_param)
+      visit show_event_path(event.url_param)
     end
     
     describe "page" do
-      it { should have_content('name') }
+      it { should have_content(event.name) }
       it { should have_content('description1') }
       it { should have_content('description2') }
       it { should have_content('2014/1/3 19:00') }
       it { should have_content('2014/1/4 19:00') }
-
+    end
+  end
+  
+  describe "Edit Event" do
+    let(:event) { FactoryGirl.create(:event) }
+    
+    before do  
+      visit edit_event_path(event.url_param)
+    end
+    
+    describe "page" do
+      it { should have_xpath("//input[@name='event[name]']") }
+      it { have_selector("#event_name", value: event.name) }
+      it { should have_content('description1') }
+      it { should have_content('description2') }
+      it { should have_content('2014/1/3 19:00') }
+      it { should have_content('2014/1/4 19:00') }
       #
       # edit operation here
       # 
     end
-
   end
 
 end

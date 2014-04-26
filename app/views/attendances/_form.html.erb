@@ -1,6 +1,6 @@
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for(@attendance) do |f| %>
+    <%= form_for(@attendance, :url => (@attendance.new_record? ? attendances_path(url_param: @url_param) : attendance_path(@attendance, url_param: @url_param))) do |f| %>
 
       <%= render 'shared/error_messages', object: f.object %>
 
@@ -27,8 +27,7 @@
         <%= f.text_field :comment, class: "form-control", placeholder: "コメント" %>
       </div>
       <div class="text-center"> 
-      <%= hidden_field_tag 'url_param', "#{@url_param}" %>
-      <%= link_to "戻る", event_path(@url_param), class: "btn btn-large btn-default" %>
+      <%= link_to "戻る", show_event_url(@url_param), class: "btn btn-large btn-default" %>
       <%= f.submit "更新する", class: "btn btn-large btn-primary" %>
       </div>
     <% end %>

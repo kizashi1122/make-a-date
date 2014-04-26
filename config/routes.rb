@@ -1,8 +1,23 @@
 MakeADate::Application.routes.draw do
 
-  resources :events, only:[:new, :create, :show, :edit, :update]
-#  resources :users, only:[:new, :create]
-  resources :attendances, only:[:new, :create, :edit, :update]
+  resources :events, only:[:new, :create]
+
+  get 'event/:url_param'      => 'events#show',   as: :show_event
+  get 'event/:url_param/edit' => 'events#edit',   as: :edit_event
+  patch 'events/:url_param'   => 'events#update', as: :event
+
+#  resources :attendances, only:[:new, :create, :edit, :update]
+
+  post  'attendances/:url_param'      => 'attendances#create', as: :attendances
+  get   'attendances/new/:url_param'  => 'attendances#new',    as: :new_attendance
+  get   'attendances/:url_param/:id/edit' => 'attendances#edit',   as: :edit_attendance
+  patch 'attendances/:url_param/:id'      => 'attendances#update', as: :attendance
+
+#    attendances POST  /attendances(.:format)           attendances#create
+# new_attendance GET   /attendances/new(.:format)       attendances#new
+#edit_attendance GET   /attendances/:id/edit(.:format)  attendances#edit
+#     attendance PATCH /attendances/:id(.:format)       attendances#update
+
   root "events#new"
 
 #  get "users/new/:url_param" => "users#new"
