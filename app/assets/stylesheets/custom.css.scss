@@ -122,3 +122,6 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
     
+td span.glyphicon {
+  font-size: 16pt;
+}
