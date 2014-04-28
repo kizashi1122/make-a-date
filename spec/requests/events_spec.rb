@@ -26,7 +26,7 @@ describe "Events" do
           fill_in "イベント名", with: ""
           click_button "イベント作成"
         end
-        it { should have_content("error") }
+        it { should have_content("エラー") }
       end
 
       describe "with invalid information (without plan)" do
@@ -34,7 +34,7 @@ describe "Events" do
           fill_in "候補日時", with: ""
           click_button "イベント作成"
         end
-        it { should have_content("error") }
+        it { should have_content("エラー") }
       end
     end
   end
