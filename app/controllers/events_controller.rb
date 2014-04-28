@@ -12,7 +12,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    @event.url_param = SecureRandom.hex(16)
+    @event.url_param = SecureRandom.hex(16) ## TODO: check whether already stored in database
     @event.plan = event_plan_arr_to_str @event.plan_str.split(/\n/).map(&:strip)
 
     if @event.save
@@ -27,7 +27,7 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event.plan += "\t" + event_plan_arr_to_str(event_params[:plan_str].split(/\n/).map(&:strip))
+    @event.plan << "\t" + event_plan_arr_to_str(event_params[:plan_str].split(/\n/).map(&:strip))
     if @event.update(event_params)
       redirect_to show_event_path(@event.url_param)
     else
