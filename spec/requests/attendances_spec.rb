@@ -35,11 +35,10 @@ describe "Attendances" do
       end
       it { should have_content("エラー")}
     end
-    
-    
+        
     describe "submit without re-selecting" do
       before { click_button "更新する" }
-      it { should have_content(new_name)}
+      it { should have_link(new_name)}
       it { should have_content(new_comment)}
       it { should have_selector(".glyphicon-remove-sign", count: 2) }
     end
@@ -50,7 +49,7 @@ describe "Attendances" do
         select "Maybe", from: "mytime_select_1"
         click_button "更新する"
       end
-      it { should have_content(new_name)}
+      it { should have_link(new_name)}
       it { should have_content(new_comment)}
       it { should have_selector(".glyphicon-question-sign", count: 1) }
       it { should have_selector(".glyphicon-ok-sign", count: 1) }

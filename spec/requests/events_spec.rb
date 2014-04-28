@@ -30,7 +30,7 @@ describe "Events" do
       describe "with valid information" do
         subject { -> { click_button "イベント作成" } }
         it { should change( Event, :count ).by(1)  }
-       end
+      end
 
       describe "with invalid information (without name)" do
         before do
@@ -51,18 +51,41 @@ describe "Events" do
   end
 
   describe "Show Event" do
-    let(:event) { FactoryGirl.create(:event) }
-    
-    before do  
-      visit show_event_path(event.url_param)
+    describe "with no-attendance" do
+      let(:event) { FactoryGirl.create(:event) }
+      
+      before do  
+        visit show_event_path(event.url_param)
+      end
+      
+      describe "page" do
+        it { should have_content(event.name) }
+        it { should have_content('description1') }
+        it { should have_content('description2') }
+        it { should have_content('2014/1/3 19:00') }
+        it { should have_content('2014/1/4 19:00') }
+      end
     end
     
-    describe "page" do
-      it { should have_content(event.name) }
-      it { should have_content('description1') }
-      it { should have_content('description2') }
-      it { should have_content('2014/1/3 19:00') }
-      it { should have_content('2014/1/4 19:00') }
+    describe "with 2 attendances" do
+      let(:event) { FactoryGirl.create(:event_with_atdc) }
+      
+      before do  
+        visit show_event_path(event.url_param)
+      end
+      
+      describe "page" do
+        it { should have_content(event.name) }
+        it { should have_content('description1') }
+        it { should have_content('description2') }
+        it { should have_content('2014/1/3 19:00') }
+        it { should have_content('2014/1/4 19:00') }
+        it { should have_link(event.attendances[0].user_name, :href => edit_attendance_path(event.attendances[0], url_param: event.url_param)) }
+        it { should have_link(event.attendances[1].user_name, :href => edit_attendance_path(event.attendances[1], url_param: event.url_param)) }
+        it { should have_content(event.attendances[0].comment) }
+        it { should have_content(event.attendances[1].comment) }
+        it { should have_selector(".glyphicon-remove-sign", count: 4) }
+      end
     end
   end
   
