@@ -1,0 +1,20 @@
+ja:
+  activerecord:
+    models:
+      attendance: 出席 #g
+      event: イベント  #g
+
+    attributes:
+      attendance:
+        comment: コメント  #g
+        event: :activerecord.models.event  #g
+        mytime: ご都合  #g
+        user_name: お名前  #g
+
+      event:
+        attendances: attendances  #g
+        description: 詳細  #g
+        name: イベント名  #g
+        plan: 候補日時  #g
+        plan_str: 候補日時  #g
+        url_param: url_param  #g

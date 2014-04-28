@@ -11,6 +11,9 @@ gem 'jquery-rails'
 gem 'therubyracer'
 gem 'sqlite3'
 
+gem 'i18n'
+gem 'i18n_generators'
+
 group :development, :test do
 #  gem 'sqlite3'
   gem 'rspec-rails'
