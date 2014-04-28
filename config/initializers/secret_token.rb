@@ -9,4 +9,20 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-MakeADate::Application.config.secret_key_base = '152097f9d9fa3d970363ed27244f927ee8e1af6d6aa8c0a59fd978980e25b43995b042931de6c7a0b36b2047e63b271b14f48250985e89b309b4187d2730ce50'
+
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+MakeADate::Application.config.secret_key_base = secure_token
