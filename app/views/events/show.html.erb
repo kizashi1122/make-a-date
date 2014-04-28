@@ -26,6 +26,6 @@
     <% end %>
   <table>
   <p>
-  <%= link_to "あなたの予定を登録する", { :controller => "attendances", :action => "new", :url_param => @event.url_param}, {:class => "btn  btn-primary"} %>
+  <%= link_to "あなたの予定を登録する", new_attendance_path(@event.url_param), {:class => "btn  btn-primary"} %>
   </p>
 
