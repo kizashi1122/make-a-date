@@ -4,9 +4,9 @@ require 'spec_helper'
 describe "Attendances" do
 
   subject { page }
-  let(:event) { FactoryGirl.create(:event) }
 
   describe "show atenndance page" do
+    let(:event) { FactoryGirl.create(:event) }
     before do 
       visit show_event_path(event.url_param)
       click_link "あなたの予定を登録する"
@@ -19,6 +19,7 @@ describe "Attendances" do
   end
 
   describe "Create an attendance" do
+    let(:event) { FactoryGirl.create(:event) }
     let(:new_name) { "John Doe" }
     let(:new_comment) { "I wanna participate in it." }
 
@@ -37,6 +38,7 @@ describe "Attendances" do
     end
         
     describe "submit without re-selecting" do
+     
       before { click_button "更新する" }
       it { should have_link(new_name)}
       it { should have_content(new_comment)}
@@ -54,6 +56,25 @@ describe "Attendances" do
       it { should have_selector(".glyphicon-question-sign", count: 1) }
       it { should have_selector(".glyphicon-ok-sign", count: 1) }
     end
+  end
+
+
+  describe "edit only first attendance" do
+    let(:event) { FactoryGirl.create(:event_with_atdc) }
+    
+    before do
+      visit edit_attendance_path(event.attendances[0], url_param: event.url_param)
+      select "Ok!",   from: "mytime_select_0"
+      select "Maybe", from: "mytime_select_1"
+      click_button "更新する"
+    end
+
+    it { should have_link(event.attendances[0].user_name)}
+    it { should have_link(event.attendances[1].user_name)}
+    it { should have_selector(".glyphicon-question-sign", count: 1) }
+    it { should have_selector(".glyphicon-ok-sign", count: 1) }
+    it { should have_selector(".glyphicon-remove-sign", count: 2) }
 
   end
+
 end
