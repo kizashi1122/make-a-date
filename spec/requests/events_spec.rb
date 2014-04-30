@@ -84,7 +84,7 @@ describe "Events" do
         it { should have_link(event.attendances[1].user_name, :href => edit_attendance_path(event.attendances[1], url_param: event.url_param)) }
         it { should have_content(event.attendances[0].comment) }
         it { should have_content(event.attendances[1].comment) }
-        it { should have_selector(".glyphicon-remove-sign", count: 4) }
+        it { should have_selector(".fa-times-circle", count: 4) }
       end
     end
   end

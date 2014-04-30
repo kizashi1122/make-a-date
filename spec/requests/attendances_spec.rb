@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+include ApplicationHelper
 
 describe "Attendances" do
 
@@ -13,8 +14,8 @@ describe "Attendances" do
     end
     it { should have_content("出欠を新規登録する") }
     it { should have_selector("select", count: 2) }
-    it { should have_selector("#mytime_select_0", text: "Not OK") }
-    it { should have_selector("#mytime_select_1", text: "Not OK") }
+    it { should have_selector("#mytime_select_0", text: display_status(0)) } # not ok
+    it { should have_selector("#mytime_select_1", text: display_status(0)) } # not ok
     it { should_not have_selector("#mytime_select_2") } 
   end
 
@@ -42,19 +43,19 @@ describe "Attendances" do
       before { click_button "更新する" }
       it { should have_link(new_name)}
       it { should have_content(new_comment)}
-      it { should have_selector(".glyphicon-remove-sign", count: 2) }
+      it { should have_selector(".fa-times-circle", count: 2) }
     end
 
     describe "submit with re-selecting both" do
       before do 
-        select "Ok!",   from: "mytime_select_0"
-        select "Maybe", from: "mytime_select_1"
+        select display_status(2), from: "mytime_select_0"  # select OK
+        select display_status(1), from: "mytime_select_1"  # select Maybe
         click_button "更新する"
       end
       it { should have_link(new_name)}
       it { should have_content(new_comment)}
-      it { should have_selector(".glyphicon-question-sign", count: 1) }
-      it { should have_selector(".glyphicon-ok-sign", count: 1) }
+      it { should have_selector(".fa-question-circle", count: 1) }
+      it { should have_selector(".fa-check-circle", count: 1) }
     end
   end
 
@@ -64,16 +65,16 @@ describe "Attendances" do
     
     before do
       visit edit_attendance_path(event.attendances[0], url_param: event.url_param)
-      select "Ok!",   from: "mytime_select_0"
-      select "Maybe", from: "mytime_select_1"
+      select display_status(2), from: "mytime_select_0"  # select OK
+      select display_status(1), from: "mytime_select_1"  # select Maybe
       click_button "更新する"
     end
 
     it { should have_link(event.attendances[0].user_name)}
     it { should have_link(event.attendances[1].user_name)}
-    it { should have_selector(".glyphicon-question-sign", count: 1) }
-    it { should have_selector(".glyphicon-ok-sign", count: 1) }
-    it { should have_selector(".glyphicon-remove-sign", count: 2) }
+    it { should have_selector(".fa-question-circle", count: 1) }
+    it { should have_selector(".fa-check-circle", count: 1) }
+    it { should have_selector(".fa-times-circle", count: 2) }
 
   end
 
