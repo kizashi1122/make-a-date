@@ -6,6 +6,9 @@
 </blockquote>
 
 <h4>候補日 <span class="label label-success">登録者数: <%= @attendances.size %></span></h4>
+  <p>
+  <%= link_to "あなたの予定を登録する", new_attendance_path(@event.url_param), {:class => "btn  btn-primary"} %>
+  </p>
 <table class="table">
   <tr>
     <th>名前</th>
