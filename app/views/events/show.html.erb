@@ -22,7 +22,7 @@
       <td><%= link_to a.user_name, edit_attendance_path(a, { :url_param => @event.url_param }) %></td>
       <%  event_plan_str_to_arr(@event.plan).each_with_index do |p, i| %>
         <% t =  mytime_str_to_arr(a.mytime)[i] %>
-        <td><%=  t.nil? ? "" : show_status_icon(t.to_i) %></td>
+        <td><%= render partial: "icon", locals: {t: t.to_i} %></td>
       <% end %>
       <td><small><%= a.comment %></small></td>
     </tr>

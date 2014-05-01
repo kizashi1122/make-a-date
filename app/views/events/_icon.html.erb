@@ -1,0 +1,10 @@
+<% if ! t.nil? %>
+  <% if t == 0 %>
+    <i class="fa fa-times-circle" style="color: tomato" title="行けません"></i>
+  <% elsif t == 1 %>
+    <i class="fa fa-question-circle" style="color: gray" title="まだわかりません"></i>
+  <% else %>
+    <i class="fa fa-check-circle" style="color: green" title="行けます！"></i>
+  <% end %>
+<% end %>
+
