@@ -47,6 +47,13 @@ describe "Events" do
         end
         it { should have_content("エラー") }
       end
+
+      it "should increase one" do
+        expect do
+          click_button "イベント作成"
+        end.to change(Event, :count).by(1)
+      end
+
     end
   end
 
@@ -168,8 +175,13 @@ describe "Events" do
           specify { expect(event.reload.plan).to eq org_plan + "\t" + new_plan1 + "\t" + new_plan2 }
         end
 
+        it "should not increase" do
+          expect do
+            click_button "イベント更新"
+          end.not_to change(Event, :count)
+        end
+
       end
     end
   end
-
 end
