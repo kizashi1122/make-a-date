@@ -58,13 +58,11 @@ describe "Attendances" do
       it { should have_selector(".fa-check-circle", count: 1) }
     end
 
-
     it "should increase one" do
       expect do
         click_button "更新する"
       end.to change(Attendance, :count).by(1)
     end
-
 
   end
 
