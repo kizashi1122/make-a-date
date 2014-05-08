@@ -172,7 +172,7 @@ describe "Events" do
 
           specify { expect(event.reload.name).to  eq new_name }
           specify { expect(event.reload.description).to  eq new_desc }
-          specify { expect(event.reload.plan).to eq org_plan + "\t" + new_plan1 + "\t" + new_plan2 }
+          specify { expect(event.reload.plan).to eq "#{org_plan}\t#{new_plan1}\t#{new_plan2}" }
         end
 
         it "should not increase" do

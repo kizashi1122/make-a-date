@@ -13,7 +13,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.url_param = SecureRandom.hex(16) ## TODO: check whether already stored in database
-    @event.plan = event_plan_arr_to_str @event.plan_str.split(/\n/).map(&:strip)
+    @event.plan = event_plan_arr_to_str(split_and_select  @event.plan_str)
 
     if @event.save
       render "url_show"
@@ -27,8 +27,7 @@ class EventsController < ApplicationController
   end
 
   def update
-    # @event.plan << "\t" + event_plan_arr_to_str(event_params[:plan_str].split(/\n/).map(&:strip))
-    @event.plan += "\t" + event_plan_arr_to_str(event_params[:plan_str].split(/\n/).map(&:strip))
+    @event.plan += "\t" + event_plan_arr_to_str(split_and_select event_params[:plan_str])
     if @event.update(event_params)
       redirect_to show_event_path(@event.url_param)
     else
@@ -48,5 +47,10 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:name, :description, :plan_str)
   end
+
+  def split_by_newline_and_select_not_empty entered
+    entered.split(/\n/).map(&:strip).select{|p| !p.empty?}
+  end
+  alias :split_and_select :split_by_newline_and_select_not_empty 
 
 end
