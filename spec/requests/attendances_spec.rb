@@ -10,7 +10,7 @@ describe "Attendances" do
     let(:event) { FactoryGirl.create(:event) }
     before do 
       visit show_event_path(event.url_param)
-      click_link "あなたの予定を登録する"
+      click_link "あなたの予定を登録する", :match => :first
     end
     it { should have_content("出欠を新規登録する") }
     it { should have_selector("select", count: 2) }
