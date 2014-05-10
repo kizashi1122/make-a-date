@@ -76,7 +76,15 @@ describe "Attendances" do
       select display_status(1), from: "mytime_select_1"  # select Maybe
     end
 
-    describe "" do
+    describe "validation error (without name)" do
+      before do 
+        fill_in "お名前",    with: ""
+        click_button "更新する"
+      end
+      it { should have_content("エラー")}
+    end
+
+    describe "success" do
       before { click_button "更新する" }
       it { should have_link(event.attendances[0].user_name)}
       it { should have_link(event.attendances[1].user_name)}
