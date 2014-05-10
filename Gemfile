@@ -7,7 +7,7 @@ gem 'sass-rails', '~> 4.0.2'
 gem 'bootstrap-sass', '~> 3.1.1.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'jquery-rails'
+gem 'jquery-rails', '= 2.2.1' # jquery-1.9.1 see https://github.com/rails/jquery-rails/blob/master/VERSIONS.md
 gem 'therubyracer'
 gem 'sqlite3'
 
