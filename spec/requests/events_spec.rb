@@ -150,12 +150,19 @@ describe "Events" do
           it { should have_content("エラー") }
         end
 
-        describe "with invalid information (without plan)" do
+        describe "without adding plan" do
           before do
+            fill_in "イベント名", with: new_name
+            fill_in "詳細",       with: new_desc
             fill_in "候補日時（追加）", with: ""
             click_button "イベント更新"
           end
-          it { should have_content("エラー") }
+
+          # should be successful
+          it { should_not have_content("エラー") }
+          specify { expect(event.reload.name).to eq new_name }
+          specify { expect(event.reload.description).to eq new_desc }
+          specify { expect(event.reload.plan).to eq org_plan }
         end
 
         describe "with valid information" do

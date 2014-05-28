@@ -18,10 +18,20 @@ describe Event do
     it { should_not be_valid }
   end
 
-  describe "when plan_str is not present" do
+  describe "when plan_str is not present on update" do
     before { event.plan_str = "" }
-    it { should_not be_valid }
+    it { should be_valid }
   end
 
+  describe "when plan_str is not present on create" do
+    let (:event2) { Event.new }
+    before do
+      event2.name = event.name
+      event2.description = event.description
+      event2.url_param = event.url_param
+      event2.plan_str = "" 
+    end
+    it { event2.should_not be_valid }
+  end
 
 end

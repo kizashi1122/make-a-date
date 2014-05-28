@@ -4,7 +4,6 @@ class Event < ActiveRecord::Base
   attr_accessor :plan_str
 
   validates :name, presence: true
-#  validates_presence_of :plan
-  validates_presence_of :plan_str
+  validates_presence_of :plan_str, on: :create
 
 end

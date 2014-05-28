@@ -27,7 +27,9 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event.plan += "\t" + event_plan_arr_to_str(split_and_select event_params[:plan_str])
+    if event_params[:plan_str].present?
+      @event.plan += "\t" + event_plan_arr_to_str(split_and_select event_params[:plan_str])
+    end
     if @event.update(event_params)
       redirect_to show_event_path(@event.url_param)
     else
