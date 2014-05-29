@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.1.1'
 
+ENV['NOKOGIRI_USE_SYSTEM_LIBRARIES'] = 'YES'
+
 gem 'rails', '4.1.1'
 gem 'sass-rails', '~> 4.0.2'
 gem 'bootstrap-sass', '~> 3.1.1.0'
